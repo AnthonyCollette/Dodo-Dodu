@@ -1,0 +1,16 @@
+body {
+    // background: radial-gradient(rgba($color-003, 0.6), $color-003);
+    min-height: 100vh;
+    // background: url(../../images/background.gif);
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    // backdrop-filter: blur(60px);
+    background-color: $color-004;
+    position: relative;
+}
+
+.background-gif {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

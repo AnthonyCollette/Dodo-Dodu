@@ -1,0 +1,27 @@
+.player-list {
+    background-color: $color-003;
+    width: 90%;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+
+    h2 {
+        text-align: center;
+        color: $white;
+        font-size: 28px;
+        font-weight: 600;
+    }
+
+    li {
+        padding: 10px 20px;
+        background-color: $color-001;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+
+        &:not(:last-of-type) {
+            margin-bottom: 20px;
+        }
+    }
+}
