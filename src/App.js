@@ -1,7 +1,6 @@
 import './assets/scss/main.scss';
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Homepage from './views/Homepage';
-import Questions from './views/Questions';
 
 function App() {
 
@@ -9,9 +8,6 @@ function App() {
     {
       path: "/",
       element: <Homepage />,
-    }, {
-      path: "/questions",
-      element: <Questions />
     }
   ]);
 
