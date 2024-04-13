@@ -2,10 +2,16 @@ import React from 'react';
 import Nav from '../components/Nav';
 import { useSelector } from 'react-redux';
 import { fetchAPI } from '../store/store';
+import { getAuth } from 'firebase/auth';
 
 const Homepage = () => {
 
     const posts = useSelector((state) => state.questions.posts)
+    
+    const testUser = () => {
+        const user = getAuth().currentUser;
+        console.log(user)
+    }
 
     return (
         <div className='homepage'>
@@ -20,6 +26,8 @@ const Homepage = () => {
             })}
 
             <button onClick={fetchAPI}>Test</button>
+
+            <button onClick={testUser}>TEST USER</button>
 
         </div>
     );

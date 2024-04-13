@@ -16,7 +16,7 @@ const Login = () => {
         e.preventDefault()
         if (!isSigninIn) {
             setIsSigninIn(true)
-            await doSignInWithEmailAndPassword(email.current.value, password.current.value).then(() => setUserLoggedIn(true))
+            await doSignInWithEmailAndPassword(email?.current.value, password?.current.value).then(() => setUserLoggedIn(true))
         }
     }
 

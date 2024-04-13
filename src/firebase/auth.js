@@ -1,5 +1,5 @@
 import { auth } from "./firebase";
-import { createUserWithEmailAndPassword, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, updatePassword, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, updatePassword, signInWithPopup, updateProfile, deleteUser, getAuth } from "firebase/auth";
 
 export const doCreateUserWithEmailAndPassword = async (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password)
@@ -16,8 +16,16 @@ export const doSignInWithGoogle = async () => {
     return result
 }
 
+export const doUpdateUser = async (data) => {
+    return updateProfile(auth.currentUser, data)
+}
+
 export const doSignOut = () => {
     return auth.signOut()
+}
+
+export const doDeleteUser = async () => {
+    return deleteUser(getAuth().currentUser)
 }
 
 // export const doPasswordReset = (email) => {

@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Homepage from './views/Homepage';
 import LoginPage from './views/LoginPage';
 import RegisterPage from './views/RegisterPage';
+import ProfilPage from './views/ProfilPage';
 
 function App() {
 
@@ -16,6 +17,9 @@ function App() {
     }, {
       path: "/register",
       element: <RegisterPage />
+    }, {
+      path: "/profile",
+      element: <ProfilPage />
     }
   ]);
 
