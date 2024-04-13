@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { auth } from '../firebase/firebase';
-import { doDeleteUser, doUpdateUser } from '../firebase/auth';
+import { doDeleteUser, doSignOut, doUpdateUser } from '../firebase/auth';
 import { getAuth } from 'firebase/auth';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
 
@@ -37,8 +36,14 @@ const Profile = () => {
         console.log(user)
     }
 
+    const disconnect = () => {
+        doSignOut()
+        navigate("/")
+    }
+
     return (
         <div>
+            {}
             <label htmlFor='name'>Pseudo</label>
             <input type='text' name='name' ref={name} />
 
@@ -47,6 +52,8 @@ const Profile = () => {
             <button onClick={() => setWantToDeleteUser(true)}>Supprimer mon compte</button>
 
             <button onClick={seeUser}>Voir user</button>
+
+            <button onClick={disconnect}>Disconnect</button>
 
             {wantToDeleteUser && <div className='modal'>
                 <p>Êtes-vous sur de vouloir supprimer votre compte ?</p>

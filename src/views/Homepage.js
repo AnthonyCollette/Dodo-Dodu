@@ -7,9 +7,14 @@ import { getAuth } from 'firebase/auth';
 const Homepage = () => {
 
     const posts = useSelector((state) => state.questions.posts)
+    const user = useSelector((state) => state.user.isAuthenticated)
     
     const testUser = () => {
         const user = getAuth().currentUser;
+        console.log(user, )
+    }
+
+    const isUserConnected = () => {
         console.log(user)
     }
 
@@ -28,6 +33,7 @@ const Homepage = () => {
             <button onClick={fetchAPI}>Test</button>
 
             <button onClick={testUser}>TEST USER</button>
+            <button onClick={isUserConnected}>TEST CONNECTED USER</button>
 
         </div>
     );

@@ -32,7 +32,7 @@ const Login = () => {
 
     return (
         <div>
-            {userLoggedIn && <Navigate to="/" replace={true} />} 
+            {userLoggedIn && <Navigate to="/profile" replace={true} />} 
             <div>
                 <label>E-mail</label>
                 <input type="email" ref={email} />
