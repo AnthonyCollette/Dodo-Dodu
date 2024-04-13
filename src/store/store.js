@@ -1,31 +1,39 @@
-// import { configureStore, createSlice } from '@reduxjs/toolkit'
-// import axios from 'axios'
+import { configureStore, createSlice } from '@reduxjs/toolkit'
+import axios from 'axios'
+import { getAuth } from 'firebase/auth'
 
-// const apiSlice = createSlice({
-//   name: 'api',
-//   initialState: {
-//     posts: [],
-//   },
-//   reducers: {
-//     fetchAPI: (state) => {
-//       let posts
+const questionsSlice = createSlice({
+    name: 'questions',
+    initialState: {
+        posts: ['test', 'test'],
+    },
+    reducers: {
+    }
+})
 
-//       axios.get('https://jsonplaceholder.typicode.com/todos/1').then((res) => posts = res.data)
+const userSlice = createSlice({
+    name: 'user',
+    initialState: {
+        isAuthenticated: false,
+    },
+    reducers: {
+        setAuth (state, action) {
+            state.isAuthenticated = action.payload
+        }
+    }
+})
 
-//       state.posts = posts
-//     }
-//   }
-// })
+export const fetchAPI = (state = questionsSlice.posts, action) => {
+    axios.get('https://jsonplaceholder.typicode.com/todos/1').then((res) => {
+        state = res
+    }).catch((err) => console.log(err))
+}
 
-// // export default function fetchAPI(state = initialState, action) {
-// //   switch (action.type) {
+export const { setAuth } = userSlice.actions
 
-
-// //   }
-// // }
-
-// export default configureStore({
-//   reducer: {
-//     apiSlice: apiSlice.api
-//   },
-// })
+export default configureStore({
+    reducer: {
+        questions: questionsSlice.reducer,
+        user: userSlice.reducer
+    },
+})
