@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { doCreateUserWithEmailAndPassword } from '../../../firebase/auth';
+import { doCreateUserWithEmailAndPassword, doUpdateUser } from '../../../firebase/auth';
 import { Navigate } from 'react-router-dom';
 
 const Register = () => {
@@ -9,13 +9,16 @@ const Register = () => {
 
     const email = useRef()
     const password = useRef()
+    const name = useRef()
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
         if (!isRegistering) {
             setIsRegistering(true)
-            await doCreateUserWithEmailAndPassword(email?.current.value, password?.current.value).then(() => setUserLoggedIn(true))
+            await doCreateUserWithEmailAndPassword(email?.current.value, password?.current.value).then(async () => { 
+                await doUpdateUser({displayName: name.current.value}).then(() => setUserLoggedIn(true));          
+             })
         }
     }
 
@@ -23,11 +26,14 @@ const Register = () => {
         <div>
             {userLoggedIn && <Navigate to="/" replace={true} />}
             <div>
+                <label htmlFor='name'>Name</label>
+                <input type="text" name="name" ref={name} required />
+
                 <label htmlFor="email">E-mail</label>
-                <input type="email" name="email" ref={email} />
+                <input type="email" name="email" ref={email} required />
 
                 <label htmlFor="password">Mot de passe</label>
-                <input type="password" name="password" ref={password} />
+                <input type="password" name="password" ref={password} required />
 
                 <button onClick={onSubmit}>M'inscrire</button>
             </div>

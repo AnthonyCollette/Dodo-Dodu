@@ -3,6 +3,7 @@ import Nav from '../components/Nav';
 import Dodo from '../assets/images/dodo-home-page.svg';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
+import { auth } from '../firebase/firebase';
 
 const Homepage = () => {
 
@@ -17,6 +18,7 @@ const Homepage = () => {
                 </div>
 
                 <button onClick={() => sound.play()}><img src={Dodo} alt="Le dodo n'a jamais froid !" /></button>
+
                 <Footer />
         </div>
     );

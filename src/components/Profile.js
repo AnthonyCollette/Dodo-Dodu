@@ -43,9 +43,8 @@ const Profile = () => {
 
     return (
         <div>
-            {}
             <label htmlFor='name'>Pseudo</label>
-            <input type='text' name='name' ref={name} />
+            <input type='text' name='name' ref={name} required />
 
             <button onClick={onSubmit}>Modifier mon profil</button>
 
