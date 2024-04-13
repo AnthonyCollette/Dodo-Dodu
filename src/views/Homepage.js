@@ -2,6 +2,7 @@ import React from 'react';
 import Nav from '../components/Nav';
 import Dodo from '../assets/images/dodo-home-page.svg';
 import Footer from '../components/Footer';
+import { Link } from 'react-router-dom';
 
 const Homepage = () => {
 
@@ -11,8 +12,8 @@ const Homepage = () => {
         <div className='homepage'>
                 <Nav />
                 <div className='titles-wrapper'>
-                    <h2>Règles du jeu</h2>
-                    <h2>Nouvelle partie</h2>
+                    <Link to="/rules">Règles du jeu</Link>
+                    <Link to="/">Nouvelle partie</Link>
                 </div>
 
                 <button onClick={() => sound.play()}><img src={Dodo} alt="Le dodo n'a jamais froid !" /></button>
