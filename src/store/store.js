@@ -1,31 +1,23 @@
-// import { configureStore, createSlice } from '@reduxjs/toolkit'
-// import axios from 'axios'
+import { configureStore, createSlice } from '@reduxjs/toolkit'
+import axios from 'axios'
 
-// const apiSlice = createSlice({
-//   name: 'api',
-//   initialState: {
-//     posts: [],
-//   },
-//   reducers: {
-//     fetchAPI: (state) => {
-//       let posts
+const questionsSlice = createSlice({
+    name: 'questions',
+    initialState: {
+        posts: ['test', 'test'],
+    },
+    reducers: {
+    }
+})
 
-//       axios.get('https://jsonplaceholder.typicode.com/todos/1').then((res) => posts = res.data)
+export const fetchAPI = (state = questionsSlice.posts, action) => {
+    axios.get('https://jsonplaceholder.typicode.com/todos/1').then((res) => {
+        state = res
+    }).catch((err) => console.log(err))
+}
 
-//       state.posts = posts
-//     }
-//   }
-// })
-
-// // export default function fetchAPI(state = initialState, action) {
-// //   switch (action.type) {
-
-
-// //   }
-// // }
-
-// export default configureStore({
-//   reducer: {
-//     apiSlice: apiSlice.api
-//   },
-// })
+export default configureStore({
+    reducer: {
+        questions: questionsSlice.reducer,
+    },
+})
