@@ -1,5 +1,5 @@
 import React from 'react';
-import dodo from '../assets/images/dodo-dodu.gif';
+import dodo from '../assets/images/gif-dodo-dodu.gif';
 
 const Loading = () => {
     return (

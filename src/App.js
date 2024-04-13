@@ -10,6 +10,7 @@ import { setAuth } from './store/store';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Error404 from './views/Error404';
 import Loading from './views/Loading';
+import Rules from './views/Rules';
 
 function App() {
 
@@ -26,7 +27,6 @@ function App() {
 
 
   const checkAuth = useSelector((state) => state?.user?.isAuthenticated)
-  console.log(checkAuth)
 
   const authRoutes = [{
     path: "/",
@@ -41,6 +41,9 @@ function App() {
     path: "/profile",
     element: <ProfilPage />,
   }, {
+    path: "/rules",
+    element: <Rules />
+  }, {
     path: "*",
     element: <Error404 />
   }]
@@ -53,6 +56,9 @@ function App() {
   }, {
     path: "/register",
     element: <RegisterPage />
+  }, {
+    path: "/rules",
+    element: <Rules />
   }, {
     path: "*",
     element: <Error404 />
