@@ -1,16 +1,17 @@
 import './assets/scss/main.scss';
-import { Navigate, Route, Router, RouterProvider, Routes, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Homepage from './views/Homepage';
 import LoginPage from './views/LoginPage';
 import RegisterPage from './views/RegisterPage';
 import ProfilPage from './views/ProfilPage';
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from './store/store';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Error404 from './views/Error404';
 import Loading from './views/Loading';
 import Rules from './views/Rules';
+import Game from './views/Game';
 
 function App() {
 
@@ -44,6 +45,9 @@ function App() {
     path: "/rules",
     element: <Rules />
   }, {
+    path: "/game",
+    element: <Game />
+  }, {
     path: "*",
     element: <Error404 />
   }]
@@ -59,6 +63,9 @@ function App() {
   }, {
     path: "/rules",
     element: <Rules />
+  },{
+    path: "/game",
+    element: <Game />
   }, {
     path: "*",
     element: <Error404 />

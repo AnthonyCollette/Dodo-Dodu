@@ -17,9 +17,31 @@ const userSlice = createSlice({
         isAuthenticated: false,
     },
     reducers: {
-        setAuth (state, action) {
+        setAuth(state, action) {
             state.isAuthenticated = action.payload
         }
+    }
+})
+
+const playersSlice = createSlice({
+    name: 'players',
+    initialState: {
+        players: [],
+    },
+    reducers: {
+        addPlayer(state, action) {
+            const min = 1;
+            const max = 9999;
+            state.players = [...state.players, { id: Math.floor(Math.random() * (max - min + 1)) + min, name: action.payload, round: 0 }]
+        },
+        removePlayer(state, action) {
+            state.players = state.players.filter((player) => {
+                return player.id !== action.payload})
+        },
+        incrementRound(state, action) {
+            const player = state.players.find(p => p.id === action.payload)
+            player.round++
+        },
     }
 })
 
@@ -31,9 +53,12 @@ export const fetchAPI = (state = questionsSlice.posts, action) => {
 
 export const { setAuth } = userSlice.actions
 
+export const { addPlayer, removePlayer, incrementRound } = playersSlice.actions
+
 export default configureStore({
     reducer: {
         questions: questionsSlice.reducer,
-        user: userSlice.reducer
+        user: userSlice.reducer,
+        players: playersSlice.reducer
     },
 })
