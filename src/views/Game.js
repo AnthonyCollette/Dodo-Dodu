@@ -16,6 +16,7 @@ const Game = () => {
     const [canGame, setCanGame] = useState(false);
     const [addingNewPlayer, setAddingNewPlayer] = useState(false);
     const [gameIsLaunch, setGameIsLaunch] = useState(false);
+    const [endGame, setEndGame] = useState(false);
 
     const setPlayer = (e) => {
         e.preventDefault();
@@ -42,7 +43,7 @@ const Game = () => {
             <Nav />
             <div className='container'>
                 <RedirectButton redirection="home" />
-                {!canGame && <div className='columns'>
+                {!canGame && !endGame && <div className='columns'>
                     <div className='column__left'>
                         <p>/!\ Lancer une partie en tant qu'invité ne permet pas de la sauvegarder dans son historique de partie !</p>
                         <button onClick={() => setCanGame(true)}>
@@ -56,7 +57,7 @@ const Game = () => {
                     </div>
                 </div>}
 
-                {canGame && !gameIsLaunch && <div>
+                {canGame && !endGame && !gameIsLaunch && <div>
                     <h1>Sélection des joueurs</h1>
                     <div className='name-board'>
                         <button onClick={() => setAddingNewPlayer(true)}>+</button>
@@ -70,7 +71,7 @@ const Game = () => {
                     <button onClick={() => setGameIsLaunch(true)}>Début de la partie</button>
                 </div>}
 
-                {canGame && gameIsLaunch && <div>
+                {canGame && gameIsLaunch && !endGame && <div>
                     <ul>
                         {players?.map((player, index) => {
                             return <li key={index}>
@@ -81,22 +82,24 @@ const Game = () => {
                                 <div><img src='' alt="icone tirelire" /></div>
                                 <div><img src='' alt="icone pactole" /></div>
                                 <div><img src='' alt="icone gage" /></div>
-                                <div>
-                                    <div className=''>
-                                        <img src='' alt="icone de compteur" />
-                                        <button>1</button>
-                                        <button>2</button>
-                                        <button>3</button>
-                                        <button>4</button>
-                                    </div>
+                                <div className='count'>
+                                    <img src='' alt="icone de compteur" />
+                                    <p>1</p>
+                                    <p>2</p>
+                                    <p>3</p>
+                                    <p>4</p>
+                                    <div className='pin'></div>
                                 </div>
                                 <button onClick={() => endRound(player.id)}>FIN DE TOUR</button>
                             </li>
                         })}
                     </ul>
-                    <button onClick={() => console.log(players)}>TEST</button>
-                </div>
-                }
+                    <button onClick={() => setEndGame(true)}>Fin de la partie</button>
+                </div>}
+
+                {canGame && gameIsLaunch && endGame && <div>
+                    <h1>PARTIE TERMINEE !</h1>    
+                </div>}
             </div>
             <Footer />
         </div>
