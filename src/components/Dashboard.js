@@ -3,7 +3,7 @@ import { doDeleteUser, doSignOut, doUpdateUser } from '../firebase/auth';
 import { getAuth } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
-const Profile = () => {
+const Dashboard = () => {
 
     const [isModifying, setIsModifying] = useState('')
     const [isDeleting, setIsDeleting] = useState('')
@@ -64,4 +64,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default Dashboard;
