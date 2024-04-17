@@ -4,7 +4,8 @@ import Footer from '../components/Footer';
 import RedirectButton from '../components/RedirectButton';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPlayer, incrementRound, removePlayer } from '../store/store';
+import { addPlayer, incrementRound, playerFinished, removePlayer } from '../store/store';
+import { auth } from '../firebase/firebase';
 
 const Game = () => {
 
@@ -12,6 +13,8 @@ const Game = () => {
 
     const checkAuth = useSelector((state) => state?.user?.isAuthenticated)
     const players = useSelector((state) => state?.players?.players)
+
+    const hostName = auth?.currentUser?.displayName
 
     const [canGame, setCanGame] = useState(false);
     const [addingNewPlayer, setAddingNewPlayer] = useState(false);
@@ -31,6 +34,16 @@ const Game = () => {
     const endRound = (id) => {
         dispatch(incrementRound(id))
     }
+
+    const endPlayerGame = (id) => {
+        dispatch(playerFinished(id))
+    }
+
+    useEffect(() => {
+        if (canGame && players.length === 0 && checkAuth) {
+            dispatch(addPlayer(hostName))
+        }
+    }, [canGame])
 
     useEffect(() => {
         if (checkAuth) {
@@ -75,6 +88,7 @@ const Game = () => {
                     <ul>
                         {players?.map((player, index) => {
                             return <li key={index}>
+                                <div onClick={() => endPlayerGame(player.id)} className={player.finished ? 'finished' : ''}><img src='' alt="icone trophée" /></div>
                                 <p>{player.name} T{player.round}</p>
                                 <div><img src='' alt="icone mascotte" /></div>
                                 <div><img src='' alt="icone mascotte" /></div>
@@ -98,7 +112,7 @@ const Game = () => {
                 </div>}
 
                 {canGame && gameIsLaunch && endGame && <div>
-                    <h1>PARTIE TERMINEE !</h1>    
+                    <h1>PARTIE TERMINEE !</h1>
                 </div>}
             </div>
             <Footer />

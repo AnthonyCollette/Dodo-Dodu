@@ -17,7 +17,6 @@ import DashboardPage from './views/DashboardPage';
 function App() {
 
   return (
-
     <div className="App">
       <Suspense fallback={<Loading />}>
         <BrowserRouter>
