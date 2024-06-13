@@ -1,82 +1,38 @@
 import './assets/scss/main.scss';
-import { Navigate, Route, Router, RouterProvider, Routes, createBrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Router, RouterProvider, Routes, createBrowserRouter } from "react-router-dom";
 import Homepage from './views/Homepage';
 import LoginPage from './views/LoginPage';
 import RegisterPage from './views/RegisterPage';
-import ProfilPage from './views/ProfilPage';
-import { Suspense, useEffect } from 'react';
+import ProfilPage from './views/DashboardPage';
+import { Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuth } from './store/store';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Error404 from './views/Error404';
 import Loading from './views/Loading';
 import Rules from './views/Rules';
+import Game from './views/Game';
+import PrivateRoutes from './components/auth/PrivateRoutes';
+import GuestRoutes from './components/auth/GuestRoutes';
+import DashboardPage from './views/DashboardPage';
 
 function App() {
 
-  const dispatch = useDispatch()
-
-  onAuthStateChanged(getAuth(), (user) => {
-    if (user === null) {
-      dispatch(setAuth(false))
-    } else {
-      dispatch(setAuth(true))
-    }
-  })
-
-
-
-  const checkAuth = useSelector((state) => state?.user?.isAuthenticated)
-
-  const authRoutes = [{
-    path: "/",
-    element: <Homepage />,
-  }, {
-    path: "/login",
-    element: <LoginPage />
-  }, {
-    path: "/register",
-    element: <RegisterPage />
-  }, {
-    path: "/profile",
-    element: <ProfilPage />,
-  }, {
-    path: "/rules",
-    element: <Rules />
-  }, {
-    path: "*",
-    element: <Error404 />
-  }]
-  const guestRoutes = [{
-    path: "/",
-    element: <Homepage />,
-  }, {
-    path: "/login",
-    element: <LoginPage />
-  }, {
-    path: "/register",
-    element: <RegisterPage />
-  }, {
-    path: "/rules",
-    element: <Rules />
-  }, {
-    path: "*",
-    element: <Error404 />
-  }]
-
-  const router = () => {
-    if (checkAuth === true) {
-      return createBrowserRouter(authRoutes)
-    } else {
-      return createBrowserRouter(guestRoutes)
-    }
-  }
-
   return (
-
     <div className="App">
       <Suspense fallback={<Loading />}>
-        <RouterProvider router={router()} />
+        <BrowserRouter>
+          <Routes>
+            <Route element={<Homepage />} path='/' exact />
+            <Route element={<Rules />} path='/rules' exact />
+            <Route element={<Game />} path='/game' exact />
+            <Route element={<PrivateRoutes />}>
+              <Route element={<DashboardPage />} path='/dashboard' exact />
+            </Route>
+            <Route element={<GuestRoutes />}>
+              <Route element={<LoginPage />} path='/login' exact />
+            </Route>
+            <Route element={<Error404 />} path='*' />
+          </Routes>
+        </BrowserRouter>
       </Suspense>
     </div>
   );
